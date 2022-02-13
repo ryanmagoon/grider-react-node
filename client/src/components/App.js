@@ -1,4 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { ChakraProvider } from '@chakra-ui/react'
 
 import Header from './Header'
 
@@ -8,14 +9,16 @@ const Landing = () => <h2>Landing</h2>
 
 const App = () => (
   <div>
-    <BrowserRouter>
-      <Header />
-      <Routes>
-        <Route path="/" element={<Landing />} />
-        <Route path="/surveys" element={<Dashboard />} />
-        <Route path="/surveys/new" element={<SurveyNew />} />
-      </Routes>
-    </BrowserRouter>
+    <ChakraProvider>
+      <BrowserRouter>
+        <Header />
+        <Routes>
+          <Route path="/" element={<Landing />} />
+          <Route path="/surveys" element={<Dashboard />} />
+          <Route path="/surveys/new" element={<SurveyNew />} />
+        </Routes>
+      </BrowserRouter>
+    </ChakraProvider>
   </div>
 )
 
