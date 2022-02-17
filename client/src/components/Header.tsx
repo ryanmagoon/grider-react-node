@@ -1,15 +1,8 @@
-import {
-  Box,
-  Button,
-  Heading,
-  Flex,
-  Stack,
-  Text,
-  useDisclosure,
-} from '@chakra-ui/react'
+import { Box, Button, Heading, Flex, useDisclosure } from '@chakra-ui/react'
 import { HamburgerIcon } from '@chakra-ui/icons'
+import { ComponentProps } from 'react'
 
-const Header = (props) => {
+const Header = (props: ComponentProps<typeof Flex>) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const handleToggle = () => (isOpen ? onClose() : onOpen())
 
