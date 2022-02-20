@@ -1,16 +1,26 @@
+import { useEffect } from 'react'
 import { ChakraProvider } from '@chakra-ui/react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
 import logo from './logo.svg'
-import { Counter } from './features/counter/Counter'
 import './App.css'
 import Header from './components/Header'
+import { useAppDispatch, useAppSelector } from './app/hooks'
+import { getUserAsync } from './features/auth/authSlice'
 
 const Dashboard = () => <h2>Dashboard</h2>
 const SurveyNew = () => <h2>SurveyNew</h2>
 const Landing = () => <h2>Landing</h2>
 
 function App() {
+  const user = useAppSelector((state) => state.auth.value)
+  const dispatch = useAppDispatch()
+
+  // fetch the user
+  useEffect(() => {
+    dispatch(getUserAsync())
+  }, [dispatch])
+
   return (
     <div className="App">
       <header className="App-header">
@@ -25,7 +35,7 @@ function App() {
           </BrowserRouter>
         </ChakraProvider>
         <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
+        {user && <h1>hello, {JSON.stringify(user)}</h1>}
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
         </p>
