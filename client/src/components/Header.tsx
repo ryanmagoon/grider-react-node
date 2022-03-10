@@ -1,8 +1,13 @@
 import { Box, Button, Heading, Flex, useDisclosure } from '@chakra-ui/react'
 import { HamburgerIcon } from '@chakra-ui/icons'
 import { ComponentProps } from 'react'
+import { Link } from 'react-router-dom'
+
+import { useAppSelector } from '../app/hooks'
 
 const Header = (props: ComponentProps<typeof Flex>) => {
+  const user = useAppSelector((state) => state.auth.value)
+
   const { isOpen, onOpen, onClose } = useDisclosure()
   const handleToggle = () => (isOpen ? onClose() : onOpen())
 
@@ -17,10 +22,12 @@ const Header = (props: ComponentProps<typeof Flex>) => {
       color="white"
       {...props}
     >
-      <Flex align="center" mr={5}>
-        <Heading as="h1" size="lg" letterSpacing="tighter">
-          Emaily
-        </Heading>
+      <Flex align="center">
+        <Link to={user ? '/surveys' : '/'}>
+          <Heading as="span" size="lg" letterSpacing="tighter">
+            Emaily
+          </Heading>
+        </Link>
       </Flex>
 
       <Box display={{ base: 'block', md: 'none' }} onClick={handleToggle}>
@@ -44,12 +51,11 @@ const Header = (props: ComponentProps<typeof Flex>) => {
         display={{ base: isOpen ? 'block' : 'none', md: 'block' }}
         mt={{ base: 4, md: 0 }}
       >
-        <Button
-          variant="outline"
-          _hover={{ bg: 'teal.700', borderColor: 'teal.700' }}
-        >
-          Login with Google
-        </Button>
+        {user ? (
+          <a href="/api/logout">Logout</a>
+        ) : (
+          <a href="/auth/google">Login with Google</a>
+        )}
       </Box>
     </Flex>
   )
