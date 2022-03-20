@@ -1,4 +1,4 @@
-import { Box, Button, Heading, Flex, useDisclosure } from '@chakra-ui/react'
+import { Box, Heading, Flex, useDisclosure } from '@chakra-ui/react'
 import { HamburgerIcon } from '@chakra-ui/icons'
 import { ComponentProps } from 'react'
 import { Link } from 'react-router-dom'
@@ -9,7 +9,7 @@ const Header = (props: ComponentProps<typeof Flex>) => {
   const user = useAppSelector((state) => state.auth.value)
 
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const handleToggle = () => (isOpen ? onClose() : onOpen())
+  const handleToggle = isOpen ? onClose : onOpen
 
   return (
     <Flex
